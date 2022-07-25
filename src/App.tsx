@@ -1,26 +1,46 @@
+import { ChakraProvider, Container } from '@chakra-ui/react';
+import NavSidebar from 'layouts/components/NavSidebar';
+import { NavItem } from 'layouts/helper';
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  AiOutlineBell,
+  AiOutlineHeart,
+  AiOutlineHome,
+  AiOutlineRead,
+  AiOutlineSetting,
+  AiOutlineUsb,
+  AiOutlineUser,
+} from 'react-icons/ai';
+import theme from './theme';
 
-function App() {
+const _nav: NavItem[] = [
+  { name: 'Trang chủ', key: '/home', icon: AiOutlineHome },
+  { name: 'Tài khoản', key: '/account', icon: AiOutlineUser },
+  { name: 'Cài đặt', key: '/settings', icon: AiOutlineSetting },
+  {
+    name: 'Thông báo',
+    key: '/notifi',
+    icon: AiOutlineBell,
+    items: [
+      { name: 'Đã đọc', key: 'red', icon: AiOutlineRead },
+      { name: 'Chưa đọc', key: 'unred', icon: AiOutlineUsb },
+    ],
+  },
+  {
+    name: 'Ưa thích',
+    key: '/favaious',
+    icon: AiOutlineHeart,
+  },
+];
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider theme={theme}>
+      <Container>
+        <NavSidebar items={_nav} />
+      </Container>
+    </ChakraProvider>
   );
-}
+};
 
 export default App;
