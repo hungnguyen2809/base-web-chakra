@@ -1,0 +1,36 @@
+.app_root {
+  $with-sidebar: 250px;
+  $height-header: 50px;
+
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: $with-sidebar 1fr;
+  grid-template-areas:
+    'app_sidebar app_header'
+    'app_sidebar app_main';
+
+  min-height: 100vh;
+  min-width: 100vw;
+
+  .app_header {
+    grid-area: app_header;
+    height: $height-header;
+    border-bottom: 1px solid gainsboro;
+  }
+
+  .app_logo {
+    height: $height-header;
+    border-bottom: 1px solid gainsboro;
+  }
+
+  .app_sidebar {
+    grid-area: app_sidebar;
+    background-color: white;
+    border-right: 1px solid gainsboro;
+  }
+
+  .app_main {
+    grid-area: app_main;
+    background-color: white;
+  }
+}

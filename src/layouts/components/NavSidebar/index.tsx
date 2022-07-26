@@ -1,17 +1,22 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Collapse, Icon, List, ListIcon, ListItem } from '@chakra-ui/react';
 import produce from 'immer';
 import { NavItem } from 'layouts/helper';
 import React, { useState } from 'react';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
+import SimpleBar from 'simplebar-react';
+import 'simplebar/dist/simplebar.min.css';
 
 type NavSidebarProps = {
   items: NavItem[];
 };
 
+const getRealKey = (key: string): string => {
+  const paths = key.split('/').filter((p) => !p.includes(':'));
+  return paths.join('/');
+};
+
 const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
   const [openKey, setOpenKey] = useState<Array<string | number>>([]);
-  // const [selectedKey, setSelectedKey] = useState<Array<string | number>>([]);
 
   const handleOpenKey = (key: string, open: boolean) => () => {
     let keys: Array<string | number> = [];
@@ -26,14 +31,8 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
     setOpenKey(keys);
   };
 
-  const handleSelectedKey = (selected: string, keyParent: string[]) => () => {
-    // if(keyParent.length > 0){
-    // }
-  };
-
   const navItem = (item: NavItem, key: string) => {
-    const keys = key.split('.');
-    keys.pop();
+    const active = false;
 
     return (
       <ListItem key={key}>
@@ -45,12 +44,14 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
           display="flex"
           userSelect="none"
           alignItems="center"
-          _hover={{ backgroundColor: '#E2E8F0' }}
+          _hover={{ backgroundColor: '#E2E8F0', borderLeft: '5px solid gray' }}
+          borderLeft={'5px solid'}
+          borderLeftColor={active ? 'primary.500' : 'transparent'}
+          textColor={active ? 'primary.500' : 'gray.800'}
           borderBottom={'1px solid #E2E8F0'}
-          onClick={handleSelectedKey(item.key, keys)}
         >
           {item.icon && <ListIcon as={item.icon} />}
-          {item.name}
+          <Box as='span'>{item.name}</Box>
         </Box>
       </ListItem>
     );
@@ -58,6 +59,7 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
 
   const navGroup = (item: NavItem, key: string) => {
     const open = openKey.includes(item.key);
+    const active = false;
     return (
       <ListItem key={key}>
         <Box
@@ -65,14 +67,17 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
           cursor="pointer"
           display={'flex'}
           alignItems={'center'}
-          _hover={{ backgroundColor: '#E2E8F0' }}
+          borderLeft={'5px solid'}
+          borderLeftColor={active ? 'primary.500' : 'transparent'}
+          textColor={active ? 'primary.500' : 'gray.800'}
+          _hover={{ backgroundColor: '#E2E8F0', borderLeft: '5px solid gray' }}
           justifyContent="space-between"
           borderBottom={'1px solid #E2E8F0'}
           onClick={handleOpenKey(item.key, open)}
         >
           <Box as="p" display={'flex'} alignItems="center" gap={2} userSelect={'none'}>
             {item.icon && <ListIcon as={item.icon} />}
-            {item.name}
+            <Box as='span'>{item.name}</Box>
           </Box>
           <Icon
             as={MdOutlineKeyboardArrowDown}
@@ -84,13 +89,25 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
           />
         </Box>
         <Collapse in={open} animateOpacity unmountOnExit>
-          <List ml={'6'}>{item.items?.map((item2) => navItem(item2, `${item.key}.${item2.key}`))}</List>
+          <List pl={'6'}>
+            {item.items?.map((item2) => {
+              return item2.items ? navGroup(item2, getRealKey(item2.key)) : navItem(item2, getRealKey(item2.key));
+            })}
+          </List>
         </Collapse>
       </ListItem>
     );
   };
 
-  return <List>{items.map((item) => (item.items ? navGroup(item, item.key) : navItem(item, item.key)))}</List>;
+  return (
+    <SimpleBar>
+      <List>
+        {items.map((item) => {
+          return item.items ? navGroup(item, getRealKey(item.key)) : navItem(item, getRealKey(item.key));
+        })}
+      </List>
+    </SimpleBar>
+  );
 };
 
 export default NavSidebar;
