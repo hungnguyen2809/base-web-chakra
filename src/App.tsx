@@ -7,9 +7,6 @@ import theme from './theme';
 const App: React.FC = () => {
   return (
     <ChakraProvider theme={theme}>
-      {/* <Container>
-        <NavSidebar items={[]} />
-      </Container> */}
       <DefaultLayout />
     </ChakraProvider>
   );

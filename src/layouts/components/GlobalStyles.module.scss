@@ -34,3 +34,15 @@
     background-color: white;
   }
 }
+
+.app__none-sidebar {
+  grid-template-rows: auto 1fr !important;
+  grid-template-columns: auto !important;
+  grid-template-areas:
+    'app_header'
+    'app_main' !important;
+
+  .app_sidebar {
+    display: none !important;
+  }
+}

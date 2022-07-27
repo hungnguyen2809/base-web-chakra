@@ -1,7 +1,7 @@
 import { Box, Collapse, Icon, List, ListIcon, ListItem } from '@chakra-ui/react';
 import produce from 'immer';
 import { NavItem } from 'layouts/helper';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
@@ -31,6 +31,15 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
     setOpenKey(keys);
   };
 
+  const cssActive = useMemo(() => {
+    return {
+      color: 'primary.800',
+      backgroundColor: 'primary.100',
+      borderLeft: '5px solid',
+      borderLeftColor: 'primary.600',
+    };
+  }, []);
+
   const navItem = (item: NavItem, key: string) => {
     const active = false;
 
@@ -39,19 +48,20 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
         <Box
           as="p"
           p="3"
+          mb={'1'}
           gap={2}
           cursor="pointer"
           display="flex"
           userSelect="none"
           alignItems="center"
-          _hover={{ backgroundColor: '#E2E8F0', borderLeft: '5px solid gray' }}
+          _hover={cssActive}
           borderLeft={'5px solid'}
-          borderLeftColor={active ? 'primary.500' : 'transparent'}
-          textColor={active ? 'primary.500' : 'gray.800'}
-          borderBottom={'1px solid #E2E8F0'}
+          borderLeftColor={active ? 'primary.600' : 'transparent'}
+          color={active ? 'primary.800' : 'gray.700'}
+          bgColor={active ? 'primary.100' : 'transparent'}
         >
           {item.icon && <ListIcon as={item.icon} />}
-          <Box as='span'>{item.name}</Box>
+          <Box as="span">{item.name}</Box>
         </Box>
       </ListItem>
     );
@@ -63,33 +73,32 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
     return (
       <ListItem key={key}>
         <Box
+          mb={'1'}
           p={'3'}
           cursor="pointer"
           display={'flex'}
           alignItems={'center'}
-          borderLeft={'5px solid'}
-          borderLeftColor={active ? 'primary.500' : 'transparent'}
-          textColor={active ? 'primary.500' : 'gray.800'}
-          _hover={{ backgroundColor: '#E2E8F0', borderLeft: '5px solid gray' }}
           justifyContent="space-between"
-          borderBottom={'1px solid #E2E8F0'}
+          _hover={cssActive}
+          borderLeft={'5px solid'}
+          borderLeftColor={active ? 'primary.600' : 'transparent'}
+          color={active ? 'primary.800' : 'gray.700'}
+          bgColor={active ? 'primary.100' : 'transparent'}
           onClick={handleOpenKey(item.key, open)}
         >
           <Box as="p" display={'flex'} alignItems="center" gap={2} userSelect={'none'}>
             {item.icon && <ListIcon as={item.icon} />}
-            <Box as='span'>{item.name}</Box>
+            <Box as="span">{item.name}</Box>
           </Box>
           <Icon
             as={MdOutlineKeyboardArrowDown}
             fontSize={20}
-            transform={open ? 'rotate(180deg)' : 'none'}
-            transition={'rotate'}
-            animation={'ease-in'}
-            transitionDelay={'0.3s'}
+            transform={open ? 'rotate(-180deg)' : 'none'}
+            transition={'all ease-in 0.3s'}
           />
         </Box>
         <Collapse in={open} animateOpacity unmountOnExit>
-          <List pl={'6'}>
+          <List ml={'6'} borderLeft="1px solid" borderLeftColor={open ? 'gray.200' : 'transparent'}>
             {item.items?.map((item2) => {
               return item2.items ? navGroup(item2, getRealKey(item2.key)) : navItem(item2, getRealKey(item2.key));
             })}

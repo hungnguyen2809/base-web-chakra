@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import classNames from 'classnames/bind';
 import React from 'react';
-import styles from './../GlobalStyles.module.scss';
+import styles from './../../GlobalStyles.module.scss';
 
 const cx = classNames.bind(styles);
 
