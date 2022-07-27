@@ -25,13 +25,11 @@
 
   .app_sidebar {
     grid-area: app_sidebar;
-    background-color: white;
     border-right: 1px solid gainsboro;
   }
 
   .app_main {
     grid-area: app_main;
-    background-color: white;
   }
 }
 

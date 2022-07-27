@@ -1,7 +1,7 @@
 import { Box, Collapse, Icon, List, ListIcon, ListItem } from '@chakra-ui/react';
 import produce from 'immer';
 import { NavItem } from 'layouts/helper';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
@@ -31,15 +31,6 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
     setOpenKey(keys);
   };
 
-  const cssActive = useMemo(() => {
-    return {
-      color: 'primary.800',
-      backgroundColor: 'primary.100',
-      borderLeft: '5px solid',
-      borderLeftColor: 'primary.600',
-    };
-  }, []);
-
   const navItem = (item: NavItem, key: string) => {
     const active = false;
 
@@ -54,11 +45,15 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
           display="flex"
           userSelect="none"
           alignItems="center"
-          _hover={cssActive}
-          borderLeft={'5px solid'}
-          borderLeftColor={active ? 'primary.600' : 'transparent'}
+          _hover={{
+            color: 'primary.800',
+            backgroundColor: 'primary.100',
+            borderRight: '3px solid',
+            borderRightColor: 'primary.600',
+          }}
+          borderRight={'3px solid'}
+          borderRightColor={active ? 'primary.600' : 'transparent'}
           color={active ? 'primary.800' : 'gray.700'}
-          bgColor={active ? 'primary.100' : 'transparent'}
         >
           {item.icon && <ListIcon as={item.icon} />}
           <Box as="span">{item.name}</Box>
@@ -79,11 +74,11 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
           display={'flex'}
           alignItems={'center'}
           justifyContent="space-between"
-          _hover={cssActive}
-          borderLeft={'5px solid'}
-          borderLeftColor={active ? 'primary.600' : 'transparent'}
+          _hover={{
+            color: 'primary.800',
+            backgroundColor: 'primary.100',
+          }}
           color={active ? 'primary.800' : 'gray.700'}
-          bgColor={active ? 'primary.100' : 'transparent'}
           onClick={handleOpenKey(item.key, open)}
         >
           <Box as="p" display={'flex'} alignItems="center" gap={2} userSelect={'none'}>
@@ -97,8 +92,9 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
             transition={'all ease-in 0.3s'}
           />
         </Box>
+
         <Collapse in={open} animateOpacity unmountOnExit>
-          <List ml={'6'} borderLeft="1px solid" borderLeftColor={open ? 'gray.200' : 'transparent'}>
+          <List ml={'6'}>
             {item.items?.map((item2) => {
               return item2.items ? navGroup(item2, getRealKey(item2.key)) : navItem(item2, getRealKey(item2.key));
             })}

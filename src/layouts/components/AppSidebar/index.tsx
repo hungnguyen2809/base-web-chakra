@@ -1,6 +1,7 @@
+import { useAppSelector } from 'app/hooks';
 import useWindowDimensions from 'hooks/useWindowDimensions';
 import { NavItem } from 'layouts/helper';
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import {
   AiOutlineBell,
   AiOutlineHeart,
@@ -10,6 +11,9 @@ import {
   AiOutlineUsb,
   AiOutlineUser,
 } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
+import { actionToggleSidebar } from 'redux/appConfig/actions';
+import { selectAppSidebarShow } from 'redux/appConfig/selectors';
 import HeaderLogo from './HeaderLogo';
 import NavSidebar from './NavSidebar';
 
@@ -54,9 +58,20 @@ const _nav: NavItem[] = [
 ];
 
 const AppSidebar: React.FC = () => {
-  const { width } = useWindowDimensions();
+  const dispatch = useDispatch();
 
-  console.log(width);
+  const { width: SCREEN_WIDTH } = useWindowDimensions();
+  const showSidebar = useAppSelector(selectAppSidebarShow);
+
+
+  useEffect(() => {
+    if (showSidebar && SCREEN_WIDTH < 950) {
+      dispatch(actionToggleSidebar(false));
+    }
+    if (!showSidebar && SCREEN_WIDTH >= 950) {
+      dispatch(actionToggleSidebar(true));
+    }
+  }, [dispatch, SCREEN_WIDTH, showSidebar]);
 
   return (
     <React.Fragment>
