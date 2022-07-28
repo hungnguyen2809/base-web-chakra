@@ -3,8 +3,6 @@ import produce from 'immer';
 import { NavItem } from 'layouts/helper';
 import React, { useState } from 'react';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
-import SimpleBar from 'simplebar-react';
-import 'simplebar/dist/simplebar.min.css';
 
 type NavSidebarProps = {
   items: NavItem[];
@@ -31,20 +29,20 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
     setOpenKey(keys);
   };
 
-  const navItem = (item: NavItem, key: string) => {
+  const navItem = (item: NavItem, key: string, level: number) => {
     const active = false;
 
     return (
       <ListItem key={key}>
         <Box
           as="p"
-          p="3"
-          mb={'1'}
+          p="12px"
           gap={2}
           cursor="pointer"
           display="flex"
           userSelect="none"
           alignItems="center"
+          pl={level > 0 ? `${level * 25}px` : '12px'}
           _hover={{
             color: 'primary.800',
             backgroundColor: 'primary.100',
@@ -55,25 +53,27 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
           borderRightColor={active ? 'primary.600' : 'transparent'}
           color={active ? 'primary.800' : 'gray.700'}
         >
-          {item.icon && <ListIcon as={item.icon} />}
-          <Box as="span">{item.name}</Box>
+          <Box w="25px" as="span" display="flex" alignItems="start">
+            {item.icon && <ListIcon as={item.icon} />}
+          </Box>
+          {item.name}
         </Box>
       </ListItem>
     );
   };
 
-  const navGroup = (item: NavItem, key: string) => {
+  const navGroup = (item: NavItem, key: string, level: number) => {
     const open = openKey.includes(item.key);
     const active = false;
     return (
       <ListItem key={key}>
         <Box
-          mb={'1'}
-          p={'3'}
+          p="12px"
           cursor="pointer"
           display={'flex'}
           alignItems={'center'}
           justifyContent="space-between"
+          pl={level > 0 ? `${level * 25}px` : '12px'}
           _hover={{
             color: 'primary.800',
             backgroundColor: 'primary.100',
@@ -82,8 +82,10 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
           onClick={handleOpenKey(item.key, open)}
         >
           <Box as="p" display={'flex'} alignItems="center" gap={2} userSelect={'none'}>
-            {item.icon && <ListIcon as={item.icon} />}
-            <Box as="span">{item.name}</Box>
+            <Box w="25px" as="span" display="flex" alignItems="start">
+              {item.icon && <ListIcon as={item.icon} />}
+            </Box>
+            {item.name}
           </Box>
           <Icon
             as={MdOutlineKeyboardArrowDown}
@@ -94,9 +96,12 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
         </Box>
 
         <Collapse in={open} animateOpacity unmountOnExit>
-          <List ml={'6'}>
+          <List>
             {item.items?.map((item2) => {
-              return item2.items ? navGroup(item2, getRealKey(item2.key)) : navItem(item2, getRealKey(item2.key));
+              const newLevel = level + 1;
+              return item2.items
+                ? navGroup(item2, getRealKey(item2.key), newLevel)
+                : navItem(item2, getRealKey(item2.key), newLevel);
             })}
           </List>
         </Collapse>
@@ -105,13 +110,13 @@ const NavSidebar: React.FC<NavSidebarProps> = ({ items }) => {
   };
 
   return (
-    <SimpleBar>
+    <Box height="80vh" overflowY="auto">
       <List>
         {items.map((item) => {
-          return item.items ? navGroup(item, getRealKey(item.key)) : navItem(item, getRealKey(item.key));
+          return item.items ? navGroup(item, getRealKey(item.key), 0) : navItem(item, getRealKey(item.key), 0);
         })}
       </List>
-    </SimpleBar>
+    </Box>
   );
 };
 

@@ -1,6 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { store } from 'app/store';
-import DefaultLayout from 'layouts/components/DefaultLayout';
+import PrivateLayout from 'layouts/PrivateLayout';
 import React from 'react';
 import { Provider } from 'react-redux';
 
@@ -10,7 +10,9 @@ const App: React.FC = () => {
   return (
     <ChakraProvider theme={theme}>
       <Provider store={store}>
-        <DefaultLayout />
+        <PrivateLayout>
+          <h4>Hung</h4>
+        </PrivateLayout>
       </Provider>
     </ChakraProvider>
   );
