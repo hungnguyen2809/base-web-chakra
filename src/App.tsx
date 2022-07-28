@@ -10,9 +10,7 @@ const App: React.FC = () => {
   return (
     <ChakraProvider theme={theme}>
       <Provider store={store}>
-        <PrivateLayout>
-          <h4>Hung</h4>
-        </PrivateLayout>
+        <PrivateLayout />
       </Provider>
     </ChakraProvider>
   );

@@ -7,3 +7,11 @@ export type NavItem = {
   icon?: IconType;
   items?: NavItem[];
 };
+
+export type NavLinkItem = {
+  name: string;
+  key: string;
+  icon?: IconType;
+  items?: NavLinkItem[];
+  to?: string;
+};
