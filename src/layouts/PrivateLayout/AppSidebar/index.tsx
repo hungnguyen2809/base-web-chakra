@@ -1,6 +1,6 @@
 import { Drawer, DrawerContent } from '@chakra-ui/react';
 import { NavLinkItem } from 'layouts/helper';
-import React from 'react';
+import React, { memo } from 'react';
 import {
   FiBellOff,
   FiBookOpen,
@@ -25,6 +25,28 @@ const LinkItems: Array<NavLinkItem> = [
   { name: 'Explore', icon: FiCompass, key: '/explore' },
   { name: 'Favourites', icon: FiStar, key: '/Favourites' },
   {
+    name: 'Quản lý khách hàng',
+    key: '/customer',
+    icon: FiBellOff,
+    items: [
+      {
+        name: 'Quản lý khách hàng tại bưu cục',
+        icon: FiTrendingUp,
+        key: '/customer/red/trending',
+      },
+      {
+        name: 'Xếp hạng khách hàng',
+        icon: FiCompass,
+        key: '/customer/red/explore',
+      },
+      {
+        name: 'Tra cứu khách hàng',
+        icon: FiCompass,
+        key: '/customer/red/customer',
+      },
+    ],
+  },
+  {
     name: 'Notification',
     key: '/notification',
     icon: FiBellOff,
@@ -35,14 +57,19 @@ const LinkItems: Array<NavLinkItem> = [
         key: '/notification/red',
         items: [
           {
-            name: 'Trending',
+            name: 'Quản lý khách hàng tại bưu cục',
             icon: FiTrendingUp,
             key: '/notification/red/trending',
           },
           {
-            name: 'Explore',
+            name: 'Xếp hạng khách hàng',
             icon: FiCompass,
             key: '/notification/red/explore',
+          },
+          {
+            name: 'Tra cứu khách hàng',
+            icon: FiCompass,
+            key: '/notification/red/customer',
           },
         ],
       },
@@ -89,4 +116,4 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ isOpen, navWidth, onClose }) =>
   );
 };
 
-export default AppSidebar;
+export default memo(AppSidebar);

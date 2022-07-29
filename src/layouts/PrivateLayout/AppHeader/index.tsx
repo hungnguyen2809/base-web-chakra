@@ -14,7 +14,7 @@ import {
   useColorModeValue,
   VStack,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { memo } from 'react';
 import { FiBell, FiChevronDown, FiMenu } from 'react-icons/fi';
 
 interface AppHeaderProps extends FlexProps {
@@ -87,4 +87,4 @@ const AppHeader: React.FC<AppHeaderProps> = ({ onOpen, navWidth, ...rest }) => {
   );
 };
 
-export default AppHeader;
+export default memo(AppHeader);
