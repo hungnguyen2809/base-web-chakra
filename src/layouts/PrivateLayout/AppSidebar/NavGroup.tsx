@@ -27,25 +27,13 @@ const NavGroup: React.FC<NavGroupProps> = ({ item }) => {
         userSelect="none"
         borderRadius="lg"
         justify="space-between"
-        color={active ? 'gray.800' : 'gray.500'}
-        _hover={{
-          bg: 'gray.200',
-          color: 'gray.800',
-        }}
+        color={active ? '#FFFFFD' : '#BFDCCF'}
+        _hover={{ bg: '#2A6E4F' }}
         onClick={() => setOpenKey(!openKey)}
       >
         <Flex align={'center'} as="p" p="3">
-          {item.icon && (
-            <Icon
-              mr="4"
-              fontSize="20"
-              _groupHover={{
-                color: 'gray.800',
-              }}
-              as={item.icon}
-            />
-          )}
-          <Box as="span" fontWeight={active ? 'medium' : 'normal'}>
+          {item.icon && <Icon mr="4" fontSize="20" as={item.icon} />}
+          <Box as="span" fontWeight={'medium'}>
             {item.name}
           </Box>
         </Flex>

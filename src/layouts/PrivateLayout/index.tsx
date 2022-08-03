@@ -1,4 +1,5 @@
 import { Box, useDisclosure } from '@chakra-ui/react';
+import WithSpeechBubbles from 'components/Testimonials';
 import React from 'react';
 import 'simplebar-react/dist/simplebar.min.css';
 import AppHeader from './AppHeader';
@@ -10,12 +11,12 @@ const PrivateLayout: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box minH="100vh" bg={'gray.100'}>
+    <Box minH="100vh" minW="fit-content" width="100vw" bg={'gray.100'}>
       <AppSidebar navWidth={NAV_WIDTH} onClose={onClose} isOpen={isOpen} />
       <AppHeader navWidth={NAV_WIDTH} onOpen={onOpen} />
 
-      <Box ml={{ base: 0, md: NAV_WIDTH }} p="4">
-        <h1>Hung</h1>
+      <Box p="4" ml={{ base: 0, md: NAV_WIDTH }}>
+        <WithSpeechBubbles />
       </Box>
     </Box>
   );

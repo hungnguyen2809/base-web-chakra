@@ -20,10 +20,10 @@ interface AppSidebarProps {
 }
 
 const LinkItems: Array<NavLinkItem> = [
-  { name: 'Home', icon: FiHome, key: '/home' },
-  { name: 'Trending', icon: FiTrendingUp, key: '/trending' },
-  { name: 'Explore', icon: FiCompass, key: '/explore' },
-  { name: 'Favourites', icon: FiStar, key: '/Favourites' },
+  { name: 'Trang chủ', icon: FiHome, key: '/home' },
+  { name: 'Xếp hạng', icon: FiTrendingUp, key: '/trending' },
+  { name: 'Tra cứu', icon: FiCompass, key: '/explore' },
+  { name: 'Yêu thích', icon: FiStar, key: '/Favourites' },
   {
     name: 'Quản lý khách hàng',
     key: '/customer',
@@ -47,44 +47,44 @@ const LinkItems: Array<NavLinkItem> = [
     ],
   },
   {
-    name: 'Notification',
+    name: 'Thông báo',
     key: '/notification',
     icon: FiBellOff,
     items: [
       {
-        name: 'Read',
+        name: 'Chưa đọc',
         icon: FiBookOpen,
         key: '/notification/red',
         items: [
           {
-            name: 'Quản lý khách hàng tại bưu cục',
+            name: 'Chưa đọc một nửa',
             icon: FiTrendingUp,
             key: '/notification/red/trending',
           },
           {
-            name: 'Xếp hạng khách hàng',
+            name: 'Xếp hạng đã đọc',
             icon: FiCompass,
             key: '/notification/red/explore',
           },
           {
-            name: 'Tra cứu khách hàng',
+            name: 'Tra cứu đã đọc',
             icon: FiCompass,
             key: '/notification/red/customer',
           },
         ],
       },
       {
-        name: 'Book',
+        name: 'Sách',
         icon: FiMessageSquare,
         key: '/notification/unred',
         items: [
           {
-            name: 'Trending',
+            name: 'Sách bán chạy',
             icon: FiTrendingUp,
             key: '/notification/unred/trending',
           },
           {
-            name: 'Explore',
+            name: 'Tìm kiếm sách',
             icon: FiCompass,
             key: '/notification/unred/explore',
           },
@@ -92,7 +92,7 @@ const LinkItems: Array<NavLinkItem> = [
       },
     ],
   },
-  { name: 'Settings', icon: FiSettings, key: '/Settings' },
+  { name: 'Cài đặt', icon: FiSettings, key: '/Settings' },
 ];
 
 const AppSidebar: React.FC<AppSidebarProps> = ({ isOpen, navWidth, onClose }) => {

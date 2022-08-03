@@ -10,30 +10,18 @@ const NavItem: React.FC<NavItemProps> = ({ item }) => {
   const active = window.location.pathname === item.key;
 
   return (
-    <ListItem mx="4" mb="2" cursor="pointer" userSelect="none" color={active ? 'gray.800' : 'gray.500'}>
+    <ListItem mx="4" mb="2" cursor="pointer" userSelect="none" color={active ? '#FFFFFD' : '#BFDCCF'}>
       <Flex
         p="3"
         role="group"
         align="center"
         borderRadius="lg"
         boxShadow={active ? 'base' : 'none'}
-        bgColor={active ? 'gray.100' : 'transparent'}
-        _hover={{
-          bg: 'gray.200',
-          color: 'gray.800',
-        }}
+        bgColor={active ? '#2A6E4F' : 'transparent'}
+        _hover={{ bg: '#2A6E4F' }}
       >
-        {item.icon && (
-          <Icon
-            mr="4"
-            fontSize="20"
-            _groupHover={{
-              color: 'gray.800',
-            }}
-            as={item.icon}
-          />
-        )}
-        <Box as="span" fontWeight={active ? 'bold' : 'normal'}>
+        {item.icon && <Icon mr="4" fontSize="20" as={item.icon} />}
+        <Box as="span" fontWeight={active ? 'bold' : 'medium'}>
           {item.name}
         </Box>
       </Flex>
