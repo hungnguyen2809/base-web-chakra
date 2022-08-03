@@ -13,14 +13,22 @@ interface SidebarProps extends BoxProps {
 
 const NavSidebar: React.FC<SidebarProps> = ({ items, navWidth, onClose, ...rest }) => {
   return (
-    <Box transition="3s ease" bg={'#115634'} w={{ base: 'full', md: navWidth }} h="full" pos="fixed" zIndex={9999} {...rest}>
+    <Box
+      h="full"
+      pos="fixed"
+      bg={'#115634'}
+      zIndex={9999}
+      transition="2s ease"
+      w={{ base: 'full', md: navWidth }}
+      {...rest}
+    >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text color={'white'} fontSize="2xl" fontFamily="monospace" fontWeight="bold">
           Logo
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
-      <SimpleBar style={{ height: '80vh', width: navWidth }}>
+      <SimpleBar style={{ height: '80vh' }}>
         <List>
           {items.map((link) =>
             link.items ? <NavGroup key={link.key} item={link} /> : <NavItem key={link.key} item={link} />
