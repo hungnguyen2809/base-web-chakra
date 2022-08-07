@@ -1,5 +1,5 @@
 import { Box, useDisclosure } from '@chakra-ui/react';
-import WithSpeechBubbles from 'components/Testimonials';
+import NhapDonLe from 'pages/NhanDonLe';
 import React from 'react';
 import 'simplebar-react/dist/simplebar.min.css';
 import AppHeader from './AppHeader';
@@ -16,7 +16,7 @@ const PrivateLayout: React.FC = () => {
       <AppHeader navWidth={NAV_WIDTH} onOpen={onOpen} />
 
       <Box p="4" ml={{ base: 0, md: NAV_WIDTH }}>
-        <WithSpeechBubbles />
+        <NhapDonLe />
       </Box>
     </Box>
   );
